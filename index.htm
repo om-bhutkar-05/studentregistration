@@ -7,7 +7,7 @@
 
     <link
       rel="stylesheet"
-      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+      href="css/bootstrap.min.css"
     />
     <style>
       body {
@@ -196,7 +196,7 @@
             <h5 class="text-center mb-4" style="color: #fff">
               Student Registration
             </h5>
-            <form class="form-card" onsubmit="event.preventDefault()">
+            <form class="form-card" action="/submit-form" method="POST">
               <div class="row justify-content-between text-left">
                 <div class="form-group col-sm-6 flex-column d-flex">
                   <label class="form-control-label px-3"
@@ -302,7 +302,7 @@
       </div>
     </div>
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
     <script>
       function setActive(link) {
         const navLinks = document.querySelectorAll('.nav-link');
