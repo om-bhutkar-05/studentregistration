@@ -37,7 +37,7 @@
 
       .nav-link.active {
         animation: borderAnimation 0.5s forwards;
-        transform: scale(1.2); /* Scale up the active link */
+        transform: scale(1.2);
       }
 
       @keyframes borderAnimation {
@@ -196,7 +196,7 @@
             <h5 class="text-center mb-4" style="color: #fff">
               Student Registration
             </h5>
-            <form class="form-card" action="/submit-form" method="POST">
+            <form id="studentForm" class="form-card" action="/submit-form" method="POST">
               <div class="row justify-content-between text-left">
                 <div class="form-group col-sm-6 flex-column d-flex">
                   <label class="form-control-label px-3"
@@ -265,7 +265,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="row justify-content-between text-left">
                 <div class="form-group col-sm-6 flex-column d-flex">
                   <label class="form-control-label px-3"
@@ -293,7 +292,7 @@
               </div>
               <div class="row justify-content-center">
                 <div class="form-group col-sm-6 flex-column d-flex">
-                  <button class="btn btn-block" type="submit">Submit</button>
+                  <button class="btn btn-block" type="submit" onclick="return validateForm()">Submit</button>
                 </div>
               </div>
             </form>
@@ -308,10 +307,40 @@
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach((navLink) => {
           navLink.classList.remove('active');
-          navLink.style.transform = "scale(1)"; // Reset scale
+          navLink.style.transform = "scale(1)";
         });
         link.classList.add('active');
-        link.style.transform = "scale(1.2)"; // Enlarge the active link
+        link.style.transform = "scale(1.2)";
+      }
+
+      function validateForm() {
+        const requiredFields = [
+          'fname', 'lname', 'email', 'mob', 'MIS', 'department', 'year', 'birthdate'
+        ];
+        
+        let isValid = true;
+        let missingFields = [];
+
+        requiredFields.forEach(field => {
+          const element = document.getElementById(field);
+          if (!element.value.trim()) {
+            isValid = false;
+            missingFields.push(field);
+            element.style.borderColor = 'red';
+          } else {
+            element.style.borderColor = '#00c6ff';
+          }
+        });
+
+        if (!isValid) {
+          const missingFieldsFormatted = missingFields.map(field => field.charAt(0).toUpperCase() + field.slice(1)).join(', ');
+          alert(`Please fill in all required fields. Missing: ${missingFieldsFormatted}`);
+          return false;
+        }
+
+        // If all fields are filled, show success alert and allow form submission
+        alert('Form submitted successfully! Data has been stored.');
+        return true;
       }
     </script>
   </body>
